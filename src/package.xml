@@ -9,9 +9,8 @@
         <name>ApexComponent</name>
     </types>
     <types>
-        <members><name>FirstPage</name></members>
+        <members>pagefirst</members>
         <name>ApexPage</name>
-       
     </types>
     <types>
         <members>*</members>
