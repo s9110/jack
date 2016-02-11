@@ -1,0 +1,28 @@
+<apex:page showHeader="false" standardcontroller="Order" standardStylesheets="false" extensions="SaveToPDF" renderAs="{! renderAs }">
+    &nbsp;&nbsp; &nbsp;&nbsp;
+    <h1 style="text-align:center;color:blue;"> Bill </h1>
+    <apex:Form >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <apex:InputText value="{!Order.Account.Name}" id="studentName" style="font-size:16px;" />
+                <br/>
+                <apex:InputText value="{!Order.Opportunity}" />
+                <br/>
+                <apex:InputText value="{!Order.EndDate}" />
+                <br/>
+            </apex:pageBlockSection>
+           
+            <apex:pageblocksection title="Description" >
+                <apex:pageblocktable value="{!Order.OrderItems}" var="lineitems" cellPadding="4" border="1" width="100%" columns="2" columnsWidth="60%,40%" style="font-size:16px;">
+                    <apex:column value="{!lineitems.id}" />
+                    <apex:column value="{!lineitems.Final_Price__c}" />
+                </apex:pageBlockTable>
+            </apex:pageblocksection>
+             <apex:pageBlockSection >
+                <apex:inputText value="{!Order.Total_Amount__c}" id="studentName" />
+            </apex:pageBlockSection><br/><br/>
+            </apex:pageBlock>
+    </apex:Form>
+
+
+</apex:page>

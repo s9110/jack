@@ -1,0 +1,57 @@
+<apex:page controller="controller_accountContact" >
+<apex:image url="{!$Resource.yellow}" width="50" height="50"/>
+      
+<!-- <apex:includeScript value="{!URLFOR($Resource.NewFolder, '/08128000000Tolt/script.js')}"/> -->
+<script type="text/javascript">
+ function deletecontact()
+     {
+      //var conid = document.getElementById('a').value;
+      var commandLink = event.target;
+      var linkValue = commandLink.innerHTML;
+      //console.log('commandLink : ' + commandLink);
+      console.log('linkValue : ' + linkValue);
+      alert(linkValue);
+       alert('hello');
+       Visualforce.remoting.Manager.invokeAction(
+      '{!$RemoteAction.controller_accountContact.removecontact}',
+      linkValue,
+       function(result, event){
+       alert(linkValue);
+          alert('event==='+event); 
+                if (event.status) {
+                    location.reload();
+               } else if (event.type === 'exception') {
+                },
+               {escape: true}
+                );
+                alert('hi');
+  }           
+ 
+</script>
+
+<h1> 1.search for a particular account from the account list page</h1>
+    <apex:pageblock id="Input">
+         <apex:form id="form1">
+             <apex:inputText value="{!searchString}" id="searchString" /> 
+             <apex:commandButton action="{!searchAccount}" value="searchAccount" 
+                             rerender="accountBlock,contactBlock">
+             </apex:commandButton>
+             <apex:pageblocksection id="accountBlock">
+                <apex:pageBlockTable value="{!accountlist}" var="account">
+                    <apex:column value="{!account.id}" />
+                    <apex:column value="{!account.name}" />
+                </apex:pageBlockTable>
+                <apex:outputText value="{!accountlistsize}" rendered="true" />
+             </apex:pageblocksection>
+             <apex:pageblocksection id="contactBlock">
+                <apex:pageBlockTable value="{!contactlist}" var="contact">
+                   <apex:column >
+                        <apex:commandlink value="{!contact.id}" styleclass="contactDelete"  onclick="deletecontact();"  >
+                         </apex:commandlink>
+                   </apex:column>
+                   <apex:column value="{!contact.name}" />
+                </apex:pageBlockTable>
+         </apex:pageblocksection>
+         </apex:form>  
+    </apex:pageblock>
+</apex:page>

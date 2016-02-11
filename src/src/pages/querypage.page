@@ -1,0 +1,80 @@
+<apex:page controller="querybulider">
+	<apex:form >
+		<apex:pagemessages id="pgmsg">
+		</apex:pagemessages>
+		<apex:pageBlock title="Dynamic Apex">
+			<apex:pageBlockSection columns="3" title="List Of Objects">
+				<apex:pageBlockSectionItem >
+					<apex:outputlabel value="Object Names :" />
+					<apex:selectList value="{!selectedObject}" size="1">
+						<apex:selectOptions value="{!ObjectNames}" />
+						<apex:actionSupport event="onchange"
+							rerender="fieldList,selectedFields" action="{!reset}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			</apex:pageblock>
+			<apex:pageBlock title="List Of Fields">
+				<apex:pageBlockSection columns="3">
+					<apex:pageBlockSectionItem >
+						<apex:outputlabel value="Field Names :" />
+						<apex:outputPanel id="fieldList">
+							<apex:selectList value="{!selectedField}" size="5"
+								multiselect="true" style="width:100px">
+								<apex:selectOptions value="{!ObjectFields}" />
+							</apex:selectList>
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+					<apex:pageblockSectionItem >
+						<apex:commandButton value="Add" action="{!AddFields}" />
+						<apex:commandButton value="Remove" action="{!RemoveElements}"
+							reRender="fieldList,selectedFields">
+						</apex:commandButton>
+						</apex:pageblocksectionItem>
+						<apex:outputPanel id="selectedFields">
+							<apex:pageBlockSectionItem >
+								<apex:outputlabel value="Selected Fields" />
+								<apex:selectList value="{!toRemoveValue}" size="5"
+									multiselect="true" style="width:100px">
+									<apex:selectOptions value="{!finalFields}" />
+								</apex:selectList>
+					</apex:pageblockSectionItem>
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+				</apex:pageblock>
+				<apex:pageBlock title="Retrived Records">
+					<apex:pageblocksection id="queryid">
+						<apex:pageblocksectionitem >
+							<apex:selectList value="{!numberOfQueries}" size="3">
+								<apex:selectOptions value="{!display}" />
+							</apex:selectList>
+						</apex:pageblocksectionitem>
+						<apex:pageblocksectionitem >
+							<apex:selectRadio value="{!radioAscending}">
+								<apex:selectOptions value="{!AscenAndDesend}" />
+							</apex:selectRadio>
+						</apex:pageblocksectionitem>
+						<apex:pageblocksectionitem >
+							<apex:commandButton value="Execute Query"
+								action="{!executeQuery}" reRender="queryid,pageTable,page,pgmsg" />
+							<apex:outputText value="{!query}" />
+						</apex:pageblocksectionitem>
+					</apex:pageblocksection>
+				</apex:pageBlock>
+				<apex:pageblock id="page">
+					<apex:pageblocksection id="pageTable">
+						<apex:pageBlockTable value="{!showTable}" var="tbl"
+							rendered="{!check}">
+							<apex:repeat value="{!listStringDisplayFields}" var="fld">
+								<apex:column >
+ 									<apex:outputlink value="{tbl[fld.id]}">
+ 								{!tbl[fld]}
+ 									 </apex:outputlink>
+								</apex:column>
+								
+							</apex:repeat>
+						</apex:pageBlockTable>
+					</apex:pageblocksection>
+			</apex:pageBlock>
+	</apex:form>
+</apex:page>

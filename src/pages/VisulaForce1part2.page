@@ -1,0 +1,77 @@
+<apex:page StandardController="Account" extensions="VisualForce1part2">
+    <br>
+    <center>
+<!--         <apex:image url="{!$Resource.Header_Image}" width="400" height="200" /> -->
+    </center>
+    </br>
+    <!-- <apex:includeScript value="{!URLFOR($Resource.JS_static, 'JavaScript_static.js')}" /> -->
+<!--      <script type="text/javascript"> 
+        //function confirmdel(conID){
+        //alert('****'+conID); 
+        // var conID =document.getElementById("{!$Component.delBtn}");
+       // Visualforce.remoting.Manager.invokeAction( 
+         //   '{!$RemoteAction.VisualForce1part2.getdelete}',
+           // conID,
+          //  function(result, event){
+                //  alert('event==='+event);
+          //      if (event.status) {
+        //            alert('Successfully deleted');
+        //            window.location.reload();
+        //        }
+        //        else if (event.type === 'exception') {
+       //         }
+        //        else { }
+        //    }, 
+       //     {escape: true}
+      //      );
+      //  }-->
+ <!--</script> -->
+    <apex:form >
+        <apex:outputPanel id="account_output">
+            <apex:outputPanel id="output_opp">
+                <apex:pageBlock title="All Accounts Records">
+                    <apex:pageBlockTable value="{!accountList}" var="AccountRecord">
+                        <!--  rendered="{!NOT(accountList.empty)}" -->
+                        <apex:column headerValue="Account">
+                            <apex:commandlink action="{!getDetails}" value="{!AccountRecord.name}" reRender="account_output,contact_output,output_opp">
+                                <!-- ,con_var,opp_var -->
+                                <apex:param value="{!AccountRecord.Id}" name="accountId1" assignto="{!accountId}" />
+                            </apex:commandlink>
+                        </apex:column> 
+                        <apex:column value="{!AccountRecord.AccountNumber}"></apex:column>
+                        <apex:column value="{!AccountRecord.Phone}"></apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Address</apex:facet>
+                            {!AccountRecord.BillingCity}{!AccountRecord.BillingState}{!AccountRecord.BillingCountry}
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlock>
+
+                <apex:pageBlock title="Contacts" rendered="{!rendercon}">
+                    <apex:outputPanel id="contact_output">
+                        <apex:pageBlockSection >
+                            <apex:pageBlockTable value="{!contactList}" var="contact">
+<!--                                 <apex:column headerValue="Delete"> -->
+                                    
+<!--                                     <apex:outputLink onclick="confirmdel('{!contact.id}');" id="delBtn">Delete</apex:outputLink> -->
+<!--                                     <apex:outputLink onclick="confirmdel('{!contact.id}');" id="delBtn">Delete</apex:outputLink> -->
+<!--                                 </apex:column> -->
+                                <apex:column headervalue="Account Name" value="{!Contact.Account.Name}"></apex:column>
+                                <apex:column headervalue="Contact name" value="{!Contact.Name}"></apex:column>
+                            </apex:pageBlockTable>
+                        </apex:pageBlockSection>
+                    </apex:outputPanel>
+                </apex:pageBlock>
+
+                <apex:pageBlock title="Opportunity" rendered="{!renderopp}">
+                    <apex:pageBlockSection >
+                        <apex:pageBlockTable value="{!opportunityList}" var="opportunity">
+                            <apex:column headervalue="Account Name" value="{!opportunity.Account.Name}" />
+                            <apex:column headervalue="Opportunity name" value="{!opportunity.Name}" />
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

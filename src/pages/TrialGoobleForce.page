@@ -1,0 +1,108 @@
+<apex:page Controller="goobleForce_Extension" tabstyle="Account">
+    <script>
+        function switchMenu(obj, obj1, obj2) {
+            var el = document.getElementById(obj);
+            if (el.style.display != 'none') {
+                el.style.display = 'none';
+            } else {
+                el.style.display = '';
+            }
+            var e2 = document.getElementById(obj1);
+            if (e2.style.display != 'none') {
+                e2.style.display = 'none';
+            } else {
+                e2.style.display = '';
+            }
+            var e3 = document.getElementById(obj2);
+            if (e2.style.display != 'none') {
+                e3.style.display = 'none';
+            } else {
+                e3.style.display = '';
+            }
+        }
+    </script>
+
+    <apex:form id="formid">
+        <apex:pagemessages id="pgmsg"></apex:pagemessages>
+        <apex:pageblock >
+            <apex:pageblocksection title="Search" id="searchblock">
+                <apex:inputText value="{!searchstring}" id="inputstring"></apex:inputText>
+                <br />
+                <apex:commandbutton value="Search" action="{!searchbtn}">
+                </apex:commandbutton>
+                <apex:actionstatus id="counterStatus">
+                    <apex:facet name="start">
+                        <div class="waitingSearchDiv" id="el_loading"
+                            style="background-color: #fbfbfb; height: 100%; opacity: 0.65; width: 100%;">
+                            <div class="waitingHolder" style="top: 100px; width: 91px;">
+                                <img class="waitingImage" src="/img/loading.gif"
+                                    title="Please Wait..." /> <span class="waitingDescription">Loading...</span>
+                            </div>
+                        </div>
+                    </apex:facet>
+                </apex:actionstatus>
+                <apex:commandbutton value="History" action="{!historybtn}"
+                    reRender="block,searchgoogle" />
+
+            </apex:pageblocksection>
+            <apex:pageblocksection columns="5" title="HISTORY" id="block">
+
+                <apex:pageblocktable value="{!resultList}" var="itt"
+                    id="table">
+                    <apex:outputpanel id="plus">
+                        <apex:image url="{!$Resource.plus}"
+                            onclick="switchMenu('{!$Component.inlinetablesec}','{!$Component.minusimage}','{!$Component.plusimage}')"
+                            title="Expand - Team Member's" />
+                    </apex:outputpanel>
+                    <apex:outputpanel id="minusimage" style="display:none;">
+                        <apex:image url="{!$Resource.minus}"
+                            onclick="switchMenu('{!$Component.inlinetablesec}','{!$Component.plusimage}','{!$Component.minusimage}')"
+                            title="Collapse - Team Member's" />
+                    </apex:outputpanel>
+                    <apex:outputpanel id="inlinetablesec" style="display:none;">
+                       <apex:variable value="{!0}" var="rowNum" />
+                       <apex:repeat var="count" value="{!itt.Body__r}"> 
+                            <apex:variable var="rowNum" value="{!rowNum+1}" /> 
+                       </apex:repeat> 
+                       <apex:outputText rendered="{!rowNum=0}">  No Team Members  </apex:outputText>
+                        <apex:pageblocktable value="{!itt}" var="tm"
+                            rendered="{!rowNum>0}">
+                            <apex:column headerValue="Team Member">
+                                <apex:outputfield value="{!tm.Title__c}" />
+                            </apex:column>
+                            <apex:column headerValue="Role">
+                                <apex:outputfield value="{!tm.Description__c}" />
+                            </apex:column>
+                        </apex:pageblocktable>
+                    </apex:outputpanel>  
+
+<!--                    </apex:column> -->
+
+                </apex:pageblocktable>
+                <!--                         <apex:column headerValue="HISTORY"> -->
+                <!--                          -->
+                <!--                     </apex:column> -->
+
+            </apex:pageblocksection>
+            <apex:panelGrid columns="2" id="panel">
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}">Previous</apex:commandlink>
+                    <apex:commandLink action="{!next}" rendered="{!hasNext}">Next</apex:commandlink>
+            </apex:panelGrid>
+            <apex:pageblocksection id="pgblock">
+                <apex:pageblocktable value="{!resultList}" var="pgtable" columns="3">
+                    <apex:column value="{!pgtable.Title__c}" />
+                    <apex:column value="{!pgtable.Link__c}" />
+                    <apex:column value="{!pgtable.Description__c}" />
+                </apex:pageblocktable>
+            </apex:pageblocksection>
+            <apex:pageblocksection id="searchgoogle">
+                <apex:pageblocktable value="{!customSearch}" var="googleresult"
+                    columns="3">
+                    <apex:column value="{!googleresult.Title__c}" />
+                    <apex:column value="{!googleresult.Link__c}" />
+                    <apex:column value="{!googleresult.Description__c}" />
+                </apex:pageblocktable>
+            </apex:pageblocksection>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

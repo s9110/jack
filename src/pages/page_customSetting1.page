@@ -1,0 +1,22 @@
+<apex:page controller="customtrial">
+<!-- Begin Default Content REMOVE THIS -->
+<h1>This page displays the custom settings for country and its dependent picklist</h1>
+<apex:pageBlock >
+<apex:form >
+<apex:pageBlock Title="Country-City" mode="edit" id="Block">
+                <apex:outputLabel value="Country"/>
+                <apex:selectList size="1" value="{!selectedCountry}">
+                    <apex:selectOptions value="{!countryList}"/>
+                    <apex:actionSupport event="onchange" action="{!getCities}" reRender="a"/>
+                </apex:selectList>               
+            <apex:outputPanel id="a">
+                    <apex:outputLabel value="City"/>
+                    <apex:selectList size="1" value="{!selectedCity}" id="a1">
+                        <apex:selectOptions value="{!cities}"/>
+                    </apex:selectList>
+          </apex:outputPanel>  
+    </apex:pageBlock>
+</apex:form>
+</apex:pageBlock>
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

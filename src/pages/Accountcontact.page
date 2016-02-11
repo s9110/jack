@@ -1,0 +1,30 @@
+<apex:page controller="controller_accountContact" id="page">
+<!-- Begin Default Content REMOVE THIS -->
+<script>
+ function ClearValue(){
+    document.getElementById('{!$Component.page:Input:form1:searchstring}').value='';
+  }
+  
+if(searchString.length()<3)
+ApexPages.addmessage(new ApexPages.message(
+                     ApexPages.severity.FATAL,'Input atleast 3 characters to perform search'
+                     ));
+            
+</script>
+<h1> 1.search for a particular account from the account list page</h1>
+<apex:pageblock id="Input">
+    <apex:form id="form1">
+         <apex:inputText value="{!searchString}" id="searchString" />
+         
+         <apex:pageMessages />
+         <apex:commandButton action="{!searchAccount}" value="searchAccount" 
+                             rerender="result_accountblock"/>
+         <a href="#" onClick="ClearValue()"> Clear </a> 
+         <apex:outputText value="the account size is " >
+             <apex:param value="{!accountlistsize}" />
+         </apex:outputText>
+         
+    </apex:form>
+</apex:pageblock>
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

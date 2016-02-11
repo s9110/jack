@@ -1,0 +1,30 @@
+<apex:page standardcontroller="Student__c" extensions="student_saveController" language="{!code} " id="parent" >
+<!-- Begin Default Content REMOVE THIS -->
+  <apex:form >
+  <apex:pagemessages id="pageMessages" ></apex:pagemessages>
+<apex:pageblock >
+   
+        <apex:pageblocksection id="pageblockSection">
+            <apex:selectList value="{!select1}" multiselect="false" size="1">
+                <apex:actionSupport event="onchange" action="{!changelanguage}" rerender="pageblockSection">
+                </apex:actionSupport>
+                <apex:selectOption itemValue="English"/>
+                <apex:selectOption itemvalue="French"/>
+                <apex:selectOption itemvalue="German"/><br/>
+                 <apex:outputText value="{!$Label.Greet}" style="font-weight:bold"/>
+            </apex:selectList>
+            <apex:inputText value="{!Student__c.Name}" id="studentName"/><br/>
+            <apex:inputText value="{!Student__c.Roll_number__c}" id="rollNumber" /><br/>
+            <apex:inputField value="{!Student__c.Gender__c}"/> <br/>
+            <apex:inputText value="{!Student__c.City__c}" id="studentCity" /><br/>
+            <apex:inputText value="{!Student__c.State__c}" id="studentState"/><br/>
+            <apex:inputText value="{!Student__c.Country__c}" id="studentCountry"/><br/>
+            <apex:inputText value="{!Student__c.SSC__c}" id="studentSSC"/><br/>
+            <apex:inputText value="{!Student__c.HSC__c}" id="studentHSC"/><br/>
+            <apex:inputField value="{!Student__c.Course_Applying_For__c}"/><br/>
+           <apex:commandButton value="Submit" action="{!save}" rerender="pagemessages, labelid"/><br/>
+           </apex:pageblocksection>
+</apex:pageblock>
+    </apex:form>
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

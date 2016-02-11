@@ -1,0 +1,76 @@
+<apex:page controller="SearchController" id="page">
+    <script  type='text/javascript'>
+     function enterPress(e){
+         if(e.keyCode==13){
+              true;
+              }else{
+              return false;
+              } validate();
+        }
+     function validate(){
+        var inp = document.getElementById('{!$Component.page:form1:block:sname}').value;
+        if(inp.length < 3){
+            alert('Please enter at least 3 characters to search.');
+            }
+           searchfunction();
+        }
+ </script>
+    <h1>Page to display the records in Account, Contact, Lead,
+        Opportunity</h1>
+    <apex:form id="form1">
+        <apex:pageblock id="block">
+        Enter the record you want to search in Account, Contact, Lead, Opportunity
+        <apex:inputText value="{!sname}" id="sname" onKeyPress="enterPress(event)">
+        </apex:inputText>
+            <apex:commandButton value="search" action="{!search}" onClick="validate();"
+              rerender="result_accountblock,result_leadBlock,result_contactblock,result_opportunityblock"/>
+              <apex:actionFunction name="searchfunction" action="{!search}"/>
+            
+            
+          
+             
+             <!-- <apex:pageMessage id="pagemessage" severity="FATAl" /> -->
+             
+             
+        </apex:pageblock>
+        <apex:pageblock id="result_accountblock" rendered="{!renderacc}">
+            <apex:pageblocksection id="accountBlock">
+                <apex:pageBlockTable value="{!accountlist}" var="account">
+                    <apex:column >
+                    <apex:commandLink action="{!search}" value="{!account.id}" reRender="result_contactblock,result_opportunityblock,pagemessage" >
+                    <apex:param value="{!account.id}"  assignTo="{!sname}"/>
+                    </apex:commandLink>
+                    </apex:column>
+                    <apex:column value="{!account.name}" />
+                </apex:pageBlockTable>
+                <apex:outputText value="the account size is " >
+                    <apex:param value="{!countlistsize}" />
+                </apex:outputText>
+           </apex:pageblocksection>
+        </apex:pageblock>
+        <apex:pageblock id="result_leadBlock" rendered="{!renderlead}">
+            <apex:pageblocksection id="leadBlock">
+                <apex:pageBlockTable value="{!leadlist}" var="lead">
+                    <apex:column value="{!lead.id}" />
+                    <apex:column value="{!lead.FirstName}" />
+                </apex:pageBlockTable>
+            </apex:pageblocksection>
+        </apex:pageblock>
+        <apex:pageblock id="result_contactblock" rendered="{!rendercon}"> 
+            <apex:pageblocksection id="contactBlock">
+                <apex:pageBlockTable value="{!contactlist}" var="contact">
+                    <apex:column value="{!contact.id}" />
+                    <apex:column value="{!contact.FirstName}" />
+                </apex:pageBlockTable>
+            </apex:pageblocksection>
+        </apex:pageblock>
+        <apex:pageblock id="result_opportunityblock" rendered="{!renderopp}">
+            <apex:pageblocksection id="opportunityBlock">
+                <apex:pageBlockTable value="{!opportunitylist}" var="opportunity">
+                    <apex:column value="{!opportunity.id}" />
+                    <apex:column value="{!opportunity.name}" />
+                </apex:pageBlockTable>
+            </apex:pageblocksection>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

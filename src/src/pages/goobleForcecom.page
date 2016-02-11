@@ -1,0 +1,52 @@
+<apex:page Controller="goobleForce_Extension" tabstyle="Account">
+    <apex:form id="formid">
+        <apex:pagemessages id="pgmsg"></apex:pagemessages>
+        <apex:pageblock >
+         <apex:pageblocksection title="Search" id="searchblock">
+            <apex:inputText value="{!searchstring}" id="inputstring" >
+            </apex:inputText>
+            <apex:commandbutton value="Search" action="{!searchbtn}" reRender="pgmsg,searchgoogle" status="counterStatus" />
+                 <apex:actionstatus id="counterStatus">
+                    <apex:facet name="start">
+                        <div class="waitingSearchDiv" id="el_loading"
+                            style="background-color: #fbfbfb; height: 100%; opacity: 0.65; width: 100%;">
+                            <div class="waitingHolder" style="top: 100px; width: 91px;">
+                                <img class="waitingImage" src="/img/loading.gif"
+                                    title="Please Wait..." /> <span class="waitingDescription">Loading...</span>
+                            </div>
+                        </div>
+                    </apex:facet>
+                </apex:actionstatus>
+             <apex:commandButton value="History" action="{!historybtn}" reRender="block" />
+           
+         </apex:pageblocksection>
+            <apex:pageblocksection columns="6" title="HISTORY" id="block" collapsible="true" >
+                <apex:pageblocktable value="{!detailList}" var="pageblock" id="table">
+                    <apex:column headerValue="HISTORY" >
+                        <apex:commandlink action="{!getDetails}" value="{!pageblock.Body__c}" Rerender="pgblock" >
+                            <apex:param value="{!pageblock.Id}" name="accountId1" assignto="{!details}" />
+                        </apex:commandlink>
+                        <apex:pageblocksection id="pgblock" collapsible="true" title="inlineresult">
+                            <apex:pageblocktable value="{!resultList}" var="pgtable" columns="3">
+                                <apex:column value="{!pgtable.Title__c}" />
+                                <apex:column value="{!pgtable.Link__c}" />
+                                <apex:column value="{!pgtable.Description__c}" />
+                            </apex:pageblocktable>
+                        </apex:pageblocksection>
+                    </apex:column>
+                </apex:pageblocktable>
+            </apex:pageblocksection>
+            <apex:panelGrid columns="2" id="panel">
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}">Previous</apex:commandlink>
+                <apex:commandLink action="{!next}" rendered="{!hasNext}">Next</apex:commandlink>
+            </apex:panelGrid>
+            <apex:pageblocksection id="searchgoogle">
+                <apex:pageblocktable value="{!resultList}" var="googleresult" columns="3">
+                    <apex:column value="{!googleresult.Title__c}" />
+                    <apex:column value="{!googleresult.Link__c}" />
+                    <apex:column value="{!googleresult.Description__c}" />
+                </apex:pageblocktable>
+            </apex:pageblocksection>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

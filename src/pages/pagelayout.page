@@ -1,0 +1,42 @@
+<apex:page >
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Congratulations</h1>
+<apex:form >
+<apex:pageblock >This is your new Page</apex:pageblock><apex:toolbar >
+<apex:toolbarGroup >                  
+<apex:commandLink value="A" style="color:white;"/>
+<apex:commandLink value="B" style="color:white;" action="{!bbb}"/>
+<apex:commandLink value="C" style="color:white;" action="{!ccc}"/>
+<apex:commandLink value="D" style="color:white;" action="{!ddd}"/>
+<apex:commandLink value="E" style="color:white;" action="{!eee}"/>
+<apex:commandLink value="F" style="color:white;" action="{!fff}"/>
+<apex:commandLink value="G" style="color:white;" action="{!ggg}"/>
+<apex:commandLink value="H" style="color:white;"/>
+<apex:commandLink value="I" style="color:white;"/>
+<apex:commandLink value="J" style="color:white;"/>
+<apex:commandLink value="K" style="color:white;"/>
+<apex:commandLink value="L" style="color:white;"/>
+<apex:commandLink value="M" style="color:white;" action="{!mmm}"/>
+<apex:commandLink value="N" style="color:white;"/>
+<apex:commandLink value="O" style="color:white;" action="{!ooo}"/>
+<apex:commandLink value="P" style="color:white;"/>
+<apex:commandLink value="Q" style="color:white;"/>
+<apex:commandLink value="R" style="color:white;" action="{!rrr}"/>
+<apex:commandLink value="S" style="color:white;"/>
+<apex:commandLink value="T" style="color:white;"/>
+<apex:commandLink value="U" style="color:white;"/>
+<apex:commandLink value="V" style="color:white;"/>
+<apex:commandLink value="W" style="color:white;"/>
+<apex:commandLink value="X" style="color:white;"/>
+<apex:commandLink value="Y" style="color:white;"/>
+<apex:commandLink value="Z" style="color:white;"/>
+<apex:commandLink value="All" style="color:white;" action="{!all}"/>
+</apex:toolbarGroup></apex:toolbar>
+</apex:form>
+<apex:pageblock >this is second page block
+<apex:pageblocksection >
+<apex:outputlabel >this is page block section</apex:outputlabel></apex:pageblocksection>
+<apex:pageblocksection >this is page block section</apex:pageblocksection>
+</apex:pageblock>
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

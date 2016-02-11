@@ -1,0 +1,37 @@
+<apex:page standardController="Invoice_Statement__c" renderas="pdf">
+    <apex:pageBlock title="Company">
+    
+        <apex:pageBlockTable value="{!Invoice_Statement__c}" var="invoice" cellPadding="4" border="1">
+
+            <apex:column value="{!invoice.BillTo__r.Name}" />
+
+
+            <apex:column value="{!invoice.BillTo__r.BillingCity}" />
+
+
+<!--             <apex:column value="{!invoice.BillTo__r.Phone}" /> -->
+
+
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock title="INVOICE">
+        <apex:pageBlockTable value="{!Invoice_Statement__c}" var="inv" cellPadding="4" border="1" style="text-align:right;">
+            <apex:column value="{!inv.Name}" />
+            <apex:column value="{!inv.BillTo__r.Name}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock title="BILL TO">
+        <apex:pageblockTable value="{!Invoice_Statement__c}" var="invoice" cellPadding="6" border="1">
+            <apex:column value="{!invoice.BillTo__r.Name}" />
+            <apex:column value="{!invoice.BillTo__r.BillingCity}" />
+            <apex:column value="{!invoice.BillTo__r.Phone}" />
+        </apex:pageblockTable>
+    </apex:pageBlock>
+    <apex:pageblock title="Description">
+        <apex:pageblocktable value="{!Invoice_Statement__c.line_items__r}" var="lineitems" cellPadding="4" border="1" width="100%" columns="2" columnsWidth="60%,40%">
+            <apex:column value="{!lineitems.Name}" />
+            <apex:column value="{!lineitems.Unit_Price__c}" />
+        </apex:pageBlockTable>
+    </apex:pageblock>
+
+</apex:page>
